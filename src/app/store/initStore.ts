@@ -1,4 +1,4 @@
-import { db } from "@/lib/powersync/PowersyncClient";
+import { db } from "@/lib/powersync/powersyncClient";
 import { SupabaseConnector } from "@/lib/powersync/SupabaseConnector";
 import { PowerSyncDatabase } from "@powersync/web";
 import { create } from "zustand";
@@ -18,7 +18,7 @@ export const useInitStore = create<InitState>((set, get) => {
     supabaseConnector,
     powersync,
     initialized: false,
-    init: () => {
+    init: async () => {
       if (get().initialized) {
         return;
       }
@@ -27,7 +27,7 @@ export const useInitStore = create<InitState>((set, get) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any)._powersync = powersync;
 
-      powersync.init();
+      await powersync.init();
 
       supabaseConnector.registerListener({
         initialized: () => {},
@@ -36,7 +36,7 @@ export const useInitStore = create<InitState>((set, get) => {
         },
       });
 
-      supabaseConnector.init();
+      await supabaseConnector.init();
       set({ initialized: true });
     },
   };

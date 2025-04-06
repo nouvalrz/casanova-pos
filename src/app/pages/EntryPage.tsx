@@ -9,6 +9,7 @@ function EntryPage() {
   const { initialized, init, supabaseConnector } = useInitStore();
 
   useEffect(() => {
+    console.log("entry");
     init();
   }, [init]);
 
