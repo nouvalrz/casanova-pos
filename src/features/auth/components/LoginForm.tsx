@@ -15,6 +15,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/app/router/paths";
+import { useInitStore } from "@/app/store/initStore";
 
 type LoginInput = {
   email: string;
@@ -34,11 +35,14 @@ export function LoginForm({
   const navigate = useNavigate();
   const login = useLogin();
 
+  const { supabaseConnector } = useInitStore();
+
   const onSubmit = (data: LoginInput) => {
     login.mutate(data, {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        supabaseConnector.updateSession(data.session);
+        navigate("/", { replace: true });
         toast.success("Berhasil login");
-        navigate(ROUTES.DASHBOARD_PAGE);
       },
       onError: (error: Error) => {
         toast.error(error.message);

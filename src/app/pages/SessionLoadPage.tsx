@@ -1,30 +1,30 @@
-import { useEffect } from "react";
+import { Loader } from "lucide-react";
+import React, { useEffect } from "react";
 import { useInitStore } from "../store/initStore";
 import { useNavigate } from "react-router-dom";
-import { Loader } from "lucide-react";
 
-function EntryPage() {
+function SessionLoadPage() {
   const navigate = useNavigate();
-  const { databaseInitialized: initialized, initDatabase: init } =
-    useInitStore();
+  const { sessionInitialized, initSession } = useInitStore();
 
   useEffect(() => {
-    init();
-  }, [init]);
+    initSession();
+  }, [initSession]);
 
   useEffect(() => {
-    if (!initialized) {
+    if (!sessionInitialized) {
       return;
     }
 
     navigate("/");
-  }, [initialized, navigate]);
+  }, [sessionInitialized, navigate]);
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
       <Loader className="animate-spin text-4xl" />
-      <p>Memuat Data</p>
+      <p>Memuat Session</p>
     </div>
   );
 }
 
-export default EntryPage;
+export default SessionLoadPage;
