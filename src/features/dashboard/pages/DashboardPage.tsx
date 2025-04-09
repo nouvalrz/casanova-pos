@@ -1,11 +1,11 @@
 import OverviewWrapper from "../components/OverviewWrapper";
-import RecentReceiptsCard from "../components/RecentReceiptsCard";
+import RecentReceiptsWrapper from "../components/RecentReceiptsWrapper";
 
 function DashboardPage() {
   return (
-    <div className="flex flex-col gap-4 px-4 ">
+    <div className="flex flex-col gap-4 px-4 flex-1 pb-4">
       <OverviewWrapper />
-      <RecentReceiptsCard />
+      <RecentReceiptsWrapper className="flex-1" />
     </div>
   );
 }

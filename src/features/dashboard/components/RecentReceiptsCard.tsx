@@ -5,18 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useFetchRecentReceipts } from "@/shared/data/receiptServices";
 import RecentReceiptsItem from "./RecentReceiptsItem";
+import { RecentReceipt } from "@/shared/types/receipt";
+import clsx from "clsx";
 
-function RecentReceiptsCard() {
-  const { data, isPending } = useFetchRecentReceipts();
-
-  if (isPending) {
-    return null;
-  }
-
+function RecentReceiptsCard({
+  data,
+  className,
+}: {
+  data: RecentReceipt[] | null;
+  className?: string;
+}) {
   return (
-    <Card>
+    <Card className={clsx(className)}>
       <CardHeader>
         <CardTitle>Struk Terbaru</CardTitle>
         <CardDescription>Diambil 2 hari terakhir</CardDescription>

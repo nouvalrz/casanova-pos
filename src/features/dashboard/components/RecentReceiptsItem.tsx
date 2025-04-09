@@ -23,12 +23,12 @@ function RecentReceiptsItem({
         <ReceiptText className="text-black size-5" />
       </div>
       <div className="flex-1 text-sm">
-        <p>{formatToCompactDate(created_at!)}</p>
-        <p className="font-semibold">{receipt_number}</p>
+        <p className="font-medium">{formatToCompactDate(created_at!)}</p>
+        <p className="text-muted-foreground">{receipt_number}</p>
         <p className="text-muted-foreground mt-1">{product_names}</p>
       </div>
       <div className="flex flex-row gap-2 items-center">
-        <p className="font-medium text-sm">{formatRupiah(total_bill ?? 0)}</p>
+        <p className="font-medium">{formatRupiah(total_bill ?? 0)}</p>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost">
@@ -36,7 +36,7 @@ function RecentReceiptsItem({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Lihat Rincian</DropdownMenuItem>
+            <DropdownMenuItem key={id}>Lihat Rincian</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

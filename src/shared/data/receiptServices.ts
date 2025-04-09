@@ -3,6 +3,7 @@ import { dbOrm } from "@/lib/powersync/powersyncClient";
 import { useQuery } from "@tanstack/react-query";
 import { dateRangeFromTodayString } from "../utils/dateRangeString";
 import { RecentReceipt } from "../types/receipt";
+import { sql } from "@powersync/kysely-driver";
 
 export const useFetchTodayRevenue = () => {
   const businessId = useInitStore.getState().user?.business_id;
@@ -83,10 +84,10 @@ export const useFetchTotalReceipt = () => {
   });
 };
 
-export const useFetchRecentReceipts = () => {
+export const useFetchRecentReceipts = (page: number, count: number) => {
   const businessId = useInitStore.getState().user?.business_id;
   return useQuery<RecentReceipt[], Error>({
-    queryKey: ["recent-receipts", businessId],
+    queryKey: ["recent-receipts", businessId, page, count],
     queryFn: async () => {
       const [today, nextDay] = dateRangeFromTodayString(2);
       const result = await dbOrm
@@ -102,7 +103,10 @@ export const useFetchRecentReceipts = () => {
           "receipts.receipt_number",
           "receipts.total_bill",
           fn
-            .agg<string[]>("group_concat", ["receipt_products.product_name"])
+            .agg<string[]>("group_concat", [
+              "receipt_products.product_name",
+              sql.raw(`', '`),
+            ])
             .as("product_names"),
         ])
         .where("receipts.business_id", "=", businessId!)
@@ -115,9 +119,30 @@ export const useFetchRecentReceipts = () => {
           "receipts.receipt_number",
           "receipts.total_bill",
         ])
+        .limit(count)
+        .offset(count * (page - 1))
         .execute();
 
       return result;
+    },
+  });
+};
+
+export const useFetchRecentReceiptsTotal = () => {
+  const businessId = useInitStore.getState().user?.business_id;
+  return useQuery<number, Error>({
+    queryKey: ["recent-receipts-total", businessId],
+    queryFn: async () => {
+      const [today, nextDay] = dateRangeFromTodayString(2);
+      const result = await dbOrm
+        .selectFrom("receipts")
+        .select(({ fn }) => [fn.count<number>("receipts.id").as("total")])
+        .where("receipts.business_id", "=", businessId!)
+        .where("receipts.created_at", ">=", today)
+        .where("receipts.created_at", "<", nextDay)
+        .executeTakeFirst();
+
+      return Number(result?.total ?? 0);
     },
   });
 };
