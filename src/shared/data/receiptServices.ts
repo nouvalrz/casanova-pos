@@ -93,7 +93,7 @@ export const useFetchRecentReceipts = () => {
         .selectFrom("receipts")
         .innerJoin(
           "receipt_products",
-          "receipt_id",
+          "receipts.id",
           "receipt_products.receipt_id"
         )
         .select(({ fn }) => [
@@ -109,7 +109,12 @@ export const useFetchRecentReceipts = () => {
         .where("receipts.created_at", ">=", today)
         .where("receipts.created_at", "<", nextDay)
         .orderBy("receipts.created_at desc")
-        .groupBy("receipts.id")
+        .groupBy([
+          "receipts.id",
+          "receipts.created_at",
+          "receipts.receipt_number",
+          "receipts.total_bill",
+        ])
         .execute();
 
       return result;
