@@ -1,10 +1,12 @@
 import { Loader } from "lucide-react";
-import React from "react";
 
-function LoadingPage() {
+function LoadingPage({ caption }: { caption?: string }) {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-      <Loader className="animate-spin text-4xl" />
+      <div className="flex flex-col gap-3 items-center">
+        <Loader className="animate-spin text-4xl" />
+        {caption && <p className="text-sm text-muted-foreground">{caption}</p>}
+      </div>
     </div>
   );
 }

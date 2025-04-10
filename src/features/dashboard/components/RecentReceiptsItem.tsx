@@ -8,7 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DotSquare, EllipsisVertical, ReceiptText } from "lucide-react";
+import { EllipsisVertical, ReceiptText } from "lucide-react";
 
 function RecentReceiptsItem({
   id,

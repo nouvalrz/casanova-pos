@@ -9,12 +9,12 @@ export const InitGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (!databaseInitialized) {
     initDatabase();
-    return <LoadingPage />;
+    return <LoadingPage caption="Memuat Data" />;
   }
 
   if (!userInitialized) {
     initUser();
-    return <LoadingPage />;
+    return <LoadingPage caption="Memuat Akun" />;
   }
 
   return children;
@@ -25,7 +25,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (!sessionInitialized) {
     initSession();
-    return <LoadingPage />;
+    return <LoadingPage caption="Mengecek Akun" />;
   }
 
   if (!supabaseConnector.currentSession) {
@@ -40,7 +40,7 @@ export const GuestGuard = ({ children }: { children: React.ReactNode }) => {
 
   if (!sessionInitialized) {
     initSession();
-    return <LoadingPage />;
+    return <LoadingPage caption="Mengecek Akun" />;
   }
 
   if (supabaseConnector.currentSession) {

@@ -10,7 +10,7 @@ import clsx from "clsx";
 
 function RecentReceiptsWrapper({ className }: { className?: string }) {
   const { page, setPage } = usePaginatedQueryParam("receiptsPage", 1);
-  const dataPerPage = 1;
+  const dataPerPage = 10;
 
   const { data: recentReceipts, isPending: isPendingRecentReceipts } =
     useFetchRecentReceipts(page, dataPerPage);

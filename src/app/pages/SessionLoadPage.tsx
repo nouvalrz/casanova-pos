@@ -1,5 +1,5 @@
 import { Loader } from "lucide-react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useInitStore } from "../store/initStore";
 import { useNavigate } from "react-router-dom";
 
