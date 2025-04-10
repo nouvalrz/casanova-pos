@@ -18,7 +18,7 @@ function RecentReceiptsCard({
   className?: string;
 }) {
   return (
-    <Card className={clsx(className)}>
+    <Card className={clsx(className,)}>
       <CardHeader>
         <CardTitle>Struk Terbaru</CardTitle>
         <CardDescription>Diambil 2 hari terakhir</CardDescription>
