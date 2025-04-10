@@ -1,11 +1,17 @@
 import { Outlet } from "react-router-dom";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "../components/AppSidebar";
+import AppHeader from "../components/AppHeader";
 
 function AppLayout() {
   return (
-    <div>
-      <p>Place for Sidebar</p>
-      <Outlet />
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <AppHeader />
+        <Outlet />
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
 

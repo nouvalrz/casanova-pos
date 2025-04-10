@@ -2,14 +2,13 @@ import { useEffect } from "react";
 import { useInitStore } from "../store/initStore";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "lucide-react";
-import { ROUTES } from "../router/paths";
 
 function EntryPage() {
   const navigate = useNavigate();
-  const { initialized, init, supabaseConnector } = useInitStore();
+  const { databaseInitialized: initialized, initDatabase: init } =
+    useInitStore();
 
   useEffect(() => {
-    console.log("entry");
     init();
   }, [init]);
 
@@ -18,15 +17,12 @@ function EntryPage() {
       return;
     }
 
-    if (supabaseConnector.currentSession) {
-      navigate(ROUTES.DASHBOARD_PAGE);
-    } else {
-      navigate(ROUTES.LOGIN_PAGE);
-    }
-  }, [initialized, navigate, supabaseConnector]);
+    navigate("/");
+  }, [initialized, navigate]);
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
       <Loader className="animate-spin text-4xl" />
+      <p>Memuat Data</p>
     </div>
   );
 }

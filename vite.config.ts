@@ -7,10 +7,18 @@ import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: [
+      "all",
+      "826b-182-253-51-0.ngrok-free.app",
+      "1d72-182-253-51-0.ngrok-free.app",
+    ],
+    port: 7200,
+  },
   build: {
     outDir: "../dist",
     rollupOptions: {
-      input: "src/index.html",
+      input: "index.html",
     },
     emptyOutDir: true,
   },
