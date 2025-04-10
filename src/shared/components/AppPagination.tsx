@@ -67,16 +67,6 @@ export function AppPagination({
     "next",
   ];
 
-  // const buttonPage = (type: string) => {
-  //   switch (type) {
-  //     case 'previous':
-  //       return page - 1;
-  //     case 'next':
-  //       return page + 1;
-  //     default:
-  //       return null;
-  //   }
-  // };
 
   return (
     <ShadPagination>
