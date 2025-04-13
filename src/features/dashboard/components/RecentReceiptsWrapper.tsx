@@ -27,7 +27,7 @@ function RecentReceiptsWrapper({ className }: { className?: string }) {
           <AppPagination
             count={Math.ceil((receiptsTotal ?? 1) / dataPerPage)}
             boundaryCount={1}
-            defaultPage={page}
+            defaultPage={Number(page)}
             siblingCount={1}
             onChange={setPage}
           />

@@ -18,3 +18,16 @@ export const formatToCompactDate = (dateString: string): string => {
 
   return formatted;
 };
+
+export const formatToFullDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const userLocale = navigator.language || "id-ID";
+
+  const formattedDate = new Intl.DateTimeFormat(userLocale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+
+  return formattedDate;
+};
