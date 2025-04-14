@@ -5,7 +5,7 @@ function RootLayout() {
   return (
     <div>
       <Outlet />
-      <Toaster />
+      <Toaster position="top-right" />
     </div>
   );
 }

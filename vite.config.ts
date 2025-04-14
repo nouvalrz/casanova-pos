@@ -12,6 +12,7 @@ export default defineConfig({
       "all",
       "826b-182-253-51-0.ngrok-free.app",
       "1d72-182-253-51-0.ngrok-free.app",
+      "0327-182-253-51-0.ngrok-free.app",
     ],
     port: 7200,
   },

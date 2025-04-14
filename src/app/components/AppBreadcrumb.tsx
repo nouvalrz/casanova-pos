@@ -14,6 +14,7 @@ const breadcrumbMap: Record<string, string> = {
   [ROUTES.RECEIPT_PAGE]: "Transaksi",
   [ROUTES.PRODUCTS_PAGE]: "Produk",
   [ROUTES.CATEGORIES_PAGE]: "Kategori",
+  [ROUTES.CATEGORIES_PAGE + "/new"]: "Tambah Kategori",
   [ROUTES.PRICE_LABEL_PRINT_PAGE]: "Label Harga",
   [ROUTES.REPORTING_PAGE]: "Laporan",
   [ROUTES.SETTING_PAGE]: "Pengaturan",
