@@ -14,16 +14,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { AppPagination } from "@/shared/components/AppPagination";
 import { usePaginatedQueryParam } from "@/shared/hooks/usePaginatedQueryParam";
+import { useDebounce } from "@/shared/hooks/useDebounce";
+import { useState } from "react";
 
 function CategoriesPage() {
-  const { page, setPage } = usePaginatedQueryParam("page", 1);
-
   const dataPerPage = 10;
+  const { page, setPage } = usePaginatedQueryParam("page", 1);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const searchKeyword = useDebounce(searchInput, 300);
 
   const { data: categories, isPending: isCategoriesPending } =
-    useFetchCategories(page, dataPerPage);
+    useFetchCategories(page, dataPerPage, searchKeyword);
   const { data: categoriesTotal, isPending: isCategoriesTotalPending } =
-    useFetchCategoriesTotal();
+    useFetchCategoriesTotal(searchKeyword);
 
   return (
     <div className="px-4 pb-4 flex flex-col h-full">
@@ -32,7 +35,11 @@ function CategoriesPage() {
           <CardTitle>Daftar Kategori</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4 flex-1">
-          <Input placeholder="Cari ..." />
+          <Input
+            placeholder="Cari ..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
           {!isCategoriesPending && (
             <AppDataTable columns={categoryColumns} data={categories ?? []} />
           )}
