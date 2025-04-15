@@ -1,7 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export const usePaginatedQueryParam = (paramName: string, defaultValue = 1) => {
+export const usePaginatedQueryParam = (
+  paramName: string,
+  defaultValue: string | number
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(defaultValue);
 

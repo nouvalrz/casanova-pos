@@ -2,7 +2,7 @@ import { useInitStore } from "@/app/store/initStore";
 import { dbOrm } from "@/lib/powersync/powersyncClient";
 import { useQuery } from "@tanstack/react-query";
 import { dateRangeFromTodayString } from "../utils/dateRangeString";
-import { RecentReceipt } from "../types/receipt";
+import { RecentReceipt } from "../types/dataTypes";
 import { sql } from "@powersync/kysely-driver";
 
 export const useFetchTodayRevenue = () => {
@@ -84,7 +84,10 @@ export const useFetchTotalReceipt = () => {
   });
 };
 
-export const useFetchRecentReceipts = (page: number, count: number) => {
+export const useFetchRecentReceipts = (
+  page: number | string,
+  count: number
+) => {
   const businessId = useInitStore.getState().user?.business_id;
   return useQuery<RecentReceipt[], Error>({
     queryKey: ["recent-receipts", businessId, page, count],
@@ -120,7 +123,7 @@ export const useFetchRecentReceipts = (page: number, count: number) => {
           "receipts.total_bill",
         ])
         .limit(count)
-        .offset(count * (page - 1))
+        .offset(count * (Number(page) - 1))
         .execute();
 
       return result;

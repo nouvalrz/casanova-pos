@@ -34,7 +34,7 @@
 
 // export type ListRecord = Database['lists'];
 
-import { column, Schema, Table } from "@powersync/web";
+import { column, RowType, Schema, Table } from "@powersync/web";
 // OR: import { column, Schema, Table } from '@powersync/react-native';
 
 const users = new Table(
@@ -237,3 +237,4 @@ export const AppSchema = new Schema({
 });
 
 export type Database = (typeof AppSchema)["types"];
+export type CategoryRecord = RowType<typeof categories>;

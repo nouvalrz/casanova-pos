@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import RecentReceiptsItem from "./RecentReceiptsItem";
-import { RecentReceipt } from "@/shared/types/receipt";
+import { RecentReceipt } from "@/shared/types/dataTypes";
 import clsx from "clsx";
 import AppEmpty from "@/shared/components/AppEmpty";
 
@@ -18,7 +18,7 @@ function RecentReceiptsCard({
   className?: string;
 }) {
   return (
-    <Card className={clsx(className,)}>
+    <Card className={clsx(className)}>
       <CardHeader>
         <CardTitle>Struk Terbaru</CardTitle>
         <CardDescription>Diambil 2 hari terakhir</CardDescription>

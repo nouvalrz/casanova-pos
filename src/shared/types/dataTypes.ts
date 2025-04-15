@@ -1,3 +1,5 @@
+import { CategoryRecord } from "@/lib/powersync/AppSchema";
+
 export type RecentReceipt = {
   id: string;
   created_at: string | null;
@@ -5,3 +7,7 @@ export type RecentReceipt = {
   total_bill: number | null;
   product_names: string[];
 };
+
+export interface Category extends CategoryRecord {
+  total_products: number | null;
+}

@@ -11,6 +11,8 @@ import CategoriesPage from "@/features/categories/pages/CategoriesPage";
 import PriceLabelPrintPage from "@/features/price-label-print/pages/PriceLabelPrintPage";
 import ReportingPage from "@/features/reporting/pages/ReportingPage";
 import SettingPage from "@/features/setting/pages/SettingPage";
+import AddCategoryPage from "@/features/categories/pages/AddCategoryPage";
+import EditCategoryPage from "@/features/categories/pages/EditCategoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -52,7 +54,20 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.CATEGORIES_PAGE.slice(1),
-            element: <CategoriesPage />,
+            children: [
+              {
+                index: true,
+                element: <CategoriesPage />,
+              },
+              {
+                path: "new",
+                element: <AddCategoryPage />,
+              },
+              {
+                path: ":id/edit",
+                element: <EditCategoryPage />,
+              },
+            ],
           },
           {
             path: ROUTES.PRICE_LABEL_PRINT_PAGE.slice(1),

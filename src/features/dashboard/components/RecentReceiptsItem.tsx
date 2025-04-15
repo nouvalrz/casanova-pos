@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { RecentReceipt } from "@/shared/types/receipt";
+import { RecentReceipt } from "@/shared/types/dataTypes";
 import { formatToCompactDate } from "@/shared/utils/formatDate";
 import { formatRupiah } from "@/shared/utils/formatRupiah";
 import {
