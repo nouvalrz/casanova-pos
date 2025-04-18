@@ -1,7 +1,7 @@
 import { AppDataTable } from "@/shared/components/AppDataTable";
 import {
-  useFetchCategories,
-  useFetchCategoriesTotal,
+  useDBFetchCategoriesWithPagination,
+  useDBFetchCategoriesTotal,
 } from "@/shared/data/categoryServices";
 import { categoryColumns } from "../components/categoryColumns";
 import {
@@ -30,9 +30,9 @@ function CategoriesPage() {
   const searchKeyword = useDebounce(searchInput, 300);
 
   const { data: categories, isPending: isCategoriesPending } =
-    useFetchCategories(page, dataPerPage, searchKeyword);
+    useDBFetchCategoriesWithPagination(page, dataPerPage, searchKeyword);
   const { data: categoriesTotal, isPending: isCategoriesTotalPending } =
-    useFetchCategoriesTotal(searchKeyword);
+    useDBFetchCategoriesTotal(searchKeyword);
 
   return (
     <div className="px-4 pb-4 flex flex-col h-full">

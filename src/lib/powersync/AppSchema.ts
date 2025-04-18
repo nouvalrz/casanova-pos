@@ -238,3 +238,4 @@ export const AppSchema = new Schema({
 
 export type Database = (typeof AppSchema)["types"];
 export type CategoryRecord = RowType<typeof categories>;
+export type ProductRecord = RowType<typeof products>;

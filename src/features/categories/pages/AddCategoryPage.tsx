@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CategoryForm } from "./CategoryForm";
+import { CategoryForm } from "../components/CategoryForm";
 
 export default function AddCategoryPage() {
   return (

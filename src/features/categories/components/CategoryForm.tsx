@@ -11,10 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Database } from "@/lib/powersync/AppSchema";
 import {
-  useInsertCategory,
-  useUpdateCategory,
+  useDBInsertCategory,
+  useDBUpdateCategory,
 } from "@/shared/data/categoryServices";
-import { useUniqueInDatabase } from "@/shared/data/utilsServices";
+import { useDBIsUnique } from "@/shared/data/utilsServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import React from "react";
@@ -43,9 +43,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ editCategory }) => {
     },
   });
 
-  const insertCategory = useInsertCategory();
-  const updateCategory = useUpdateCategory();
-  const uniqueInDatabase = useUniqueInDatabase();
+  const insertCategory = useDBInsertCategory();
+  const updateCategory = useDBUpdateCategory();
+  const uniqueInDatabase = useDBIsUnique();
 
   const onSubmit = async (values: z.infer<typeof categoryFormSchema>) => {
     try {

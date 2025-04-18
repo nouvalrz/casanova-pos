@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CategoryForm } from "./CategoryForm";
+import { CategoryForm } from "../components/CategoryForm";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetchCategoryById } from "@/shared/data/categoryServices";
+import { useDBFetchCategoryById } from "@/shared/data/categoryServices";
 import { useEffect } from "react";
 import { ROUTES } from "@/app/router/paths";
 
@@ -15,7 +15,7 @@ export default function EditCategoryPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isError, isPending } = useFetchCategoryById(id!);
+  const { data, isError, isPending } = useDBFetchCategoryById(id!);
 
   useEffect(() => {
     if (isError) {

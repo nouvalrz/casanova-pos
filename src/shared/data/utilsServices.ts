@@ -7,7 +7,7 @@ type IsValueUniqueTypes = {
   value: string;
 };
 
-export const useUniqueInDatabase = () => {
+export const useDBIsUnique = () => {
   return useMutation({
     mutationFn: async ({ table, column, value }: IsValueUniqueTypes) => {
       const result = (await db.get(

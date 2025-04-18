@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { AuthGuard, GuestGuard, InitGuard } from "./guards";
+import { AuthGuard, GuestGuard, InitGuard, OwnerGuard } from "./guards";
 import LoginPage from "@/features/auth/pages/LoginPage";
 import { ROUTES } from "./paths";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
@@ -13,6 +13,8 @@ import ReportingPage from "@/features/reporting/pages/ReportingPage";
 import SettingPage from "@/features/setting/pages/SettingPage";
 import AddCategoryPage from "@/features/categories/pages/AddCategoryPage";
 import EditCategoryPage from "@/features/categories/pages/EditCategoryPage";
+import AddProductPage from "@/features/products/pages/AddProductPage";
+import EditProductPage from "@/features/products/pages/EditProductPage";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +52,28 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.PRODUCTS_PAGE.slice(1),
-            element: <ProductsPage />,
+            children: [
+              {
+                index: true,
+                element: <ProductsPage />,
+              },
+              {
+                path: "new",
+                element: (
+                  <OwnerGuard>
+                    <AddProductPage />
+                  </OwnerGuard>
+                ),
+              },
+              {
+                path: ":id/edit",
+                element: (
+                  <OwnerGuard>
+                    <EditProductPage />
+                  </OwnerGuard>
+                ),
+              },
+            ],
           },
           {
             path: ROUTES.CATEGORIES_PAGE.slice(1),

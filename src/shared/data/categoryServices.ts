@@ -5,7 +5,25 @@ import { dbOrm } from "@/lib/powersync/powersyncClient";
 import { sql } from "@powersync/kysely-driver";
 import { Database } from "@/lib/powersync/AppSchema";
 
-export const useFetchCategories = (
+export const useDBFetchCategories = () => {
+  const businessId = useInitStore.getState().user?.business_id;
+
+  return useQuery<Database["categories"][], Error>({
+    queryKey: ["categories", businessId],
+    queryFn: async () => {
+      const result = await dbOrm
+        .selectFrom("categories")
+        .selectAll("categories")
+        .where("categories.business_id", "=", businessId!)
+        .groupBy("categories.id")
+        .orderBy("categories.created_at", "desc")
+        .execute();
+      return result;
+    },
+  });
+};
+
+export const useDBFetchCategoriesWithPagination = (
   page: string | number,
   count: number,
   searchKeyword: string = ""
@@ -39,9 +57,9 @@ export const useFetchCategories = (
   });
 };
 
-export const useFetchCategoryById = (id: string) => {
+export const useDBFetchCategoryById = (id: string) => {
   return useQuery<Database["categories"], Error>({
-    queryKey: ["edit-category", id],
+    queryKey: ["category-by-id", id],
     queryFn: async () => {
       const result = await dbOrm
         .selectFrom("categories")
@@ -58,7 +76,7 @@ export const useFetchCategoryById = (id: string) => {
   });
 };
 
-export const useFetchCategoriesTotal = (searchKeyword: string = "") => {
+export const useDBFetchCategoriesTotal = (searchKeyword: string = "") => {
   const businessId = useInitStore.getState().user?.business_id;
 
   return useQuery<number, Error>({
@@ -82,7 +100,7 @@ export const useFetchCategoriesTotal = (searchKeyword: string = "") => {
   });
 };
 
-export const useInsertCategory = () => {
+export const useDBInsertCategory = () => {
   const businessId = useInitStore.getState().user?.business_id;
   return useMutation({
     mutationFn: async ({ name }: { name: string }) => {
@@ -99,7 +117,7 @@ export const useInsertCategory = () => {
   });
 };
 
-export const useUpdateCategory = () => {
+export const useDBUpdateCategory = () => {
   return useMutation({
     mutationFn: async ({ id, name }: { id: string; name: string }) => {
       await dbOrm
